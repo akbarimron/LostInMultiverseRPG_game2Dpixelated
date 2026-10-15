@@ -1,0 +1,13 @@
+# Godot 4+ specific ignores
+.godot/
+**/android/
+**/build/
+*.tmp
+*.TMP
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local agents / scratch
+.agents/

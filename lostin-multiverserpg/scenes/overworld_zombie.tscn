@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://ci25te8isc536"]
+
+[ext_resource type="Script" path="res://scripts/overworld_zombie.gd" id="1_ozombie"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/enemy_frames.tres" id="2_frames"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1"]
+radius = 7.0
+height = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_contact"]
+radius = 16.0
+
+[node name="OverworldZombie" type="CharacterBody2D" unique_id=1984267105]
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_ozombie")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1535485634]
+texture_filter = 1
+sprite_frames = ExtResource("2_frames")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1299173297]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_1")
+
+[node name="ContactArea" type="Area2D" parent="." unique_id=1661262312]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea" unique_id=1347235742]
+shape = SubResource("CircleShape2D_contact")

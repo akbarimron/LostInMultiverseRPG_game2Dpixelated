@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cha3hv1uqt5nm"]
+
+[ext_resource type="Script" path="res://scripts/human_player.gd" id="1_player"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1"]
+radius = 7.0
+height = 20.0
+
+[node name="HumanPlayer" type="CharacterBody2D" unique_id=2079832126]
+y_sort_enabled = true
+collision_mask = 6
+script = ExtResource("1_player")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1702162658]
+texture_filter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=314165929]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_1")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=184482009]
+zoom = Vector2(2.5, 2.5)
+position_smoothing_enabled = true

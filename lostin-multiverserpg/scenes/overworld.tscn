@@ -1,0 +1,170 @@
+[gd_scene format=3 uid="uid://dtqoed4qqa2pb"]
+
+[ext_resource type="Script" path="res://scripts/overworld.gd" id="1_ow"]
+[ext_resource type="Texture2D" path="res://assets/sprites/grass_ground_large.png" id="2_grass"]
+[ext_resource type="PackedScene" uid="uid://cha3hv1uqt5nm" path="res://scenes/human_player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://ci25te8isc536" path="res://scenes/overworld_zombie.tscn" id="4_ozombie"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_top"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bot"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_left"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_right"]
+normal = Vector2(-1, 0)
+
+[node name="Overworld" type="Node2D" unique_id=697387439]
+script = ExtResource("1_ow")
+
+[node name="Ground" type="TextureRect" parent="." unique_id=877831525]
+texture_filter = 1
+offset_left = -700.0
+offset_top = -500.0
+offset_right = 1500.0
+offset_bottom = 1000.0
+texture = ExtResource("2_grass")
+stretch_mode = 1
+
+[node name="ArenaBoundaries" type="StaticBody2D" parent="." unique_id=883359306]
+collision_layer = 4
+collision_mask = 3
+
+[node name="WallTop" type="CollisionShape2D" parent="ArenaBoundaries" unique_id=1979517735]
+position = Vector2(320, -480)
+shape = SubResource("WorldBoundaryShape2D_top")
+
+[node name="WallBottom" type="CollisionShape2D" parent="ArenaBoundaries" unique_id=1266084038]
+position = Vector2(320, 980)
+shape = SubResource("WorldBoundaryShape2D_bot")
+
+[node name="WallLeft" type="CollisionShape2D" parent="ArenaBoundaries" unique_id=2064733821]
+position = Vector2(-680, 200)
+shape = SubResource("WorldBoundaryShape2D_left")
+
+[node name="WallRight" type="CollisionShape2D" parent="ArenaBoundaries" unique_id=958887405]
+position = Vector2(1480, 200)
+shape = SubResource("WorldBoundaryShape2D_right")
+
+[node name="Entities" type="Node2D" parent="." unique_id=944648067]
+y_sort_enabled = true
+
+[node name="HumanPlayer" parent="Entities" unique_id=50955427 instance=ExtResource("3_player")]
+position = Vector2(320, 180)
+
+[node name="Zombie_A1" parent="Entities" unique_id=138029746 instance=ExtResource("4_ozombie")]
+position = Vector2(80, 80)
+zombie_id = "zombie_a1"
+
+[node name="Zombie_A2" parent="Entities" unique_id=313762653 instance=ExtResource("4_ozombie")]
+position = Vector2(125, 95)
+zombie_id = "zombie_a2"
+variant_id = 2
+
+[node name="Zombie_Solo" parent="Entities" unique_id=655284385 instance=ExtResource("4_ozombie")]
+position = Vector2(520, 70)
+zombie_id = "zombie_solo"
+variant_id = 3
+
+[node name="Zombie_B1" parent="Entities" unique_id=1081248289 instance=ExtResource("4_ozombie")]
+position = Vector2(560, 280)
+zombie_id = "zombie_b1"
+variant_id = 2
+
+[node name="Zombie_B2" parent="Entities" unique_id=854380152 instance=ExtResource("4_ozombie")]
+position = Vector2(610, 305)
+zombie_id = "zombie_b2"
+variant_id = 3
+
+[node name="Zombie_North" parent="Entities" unique_id=669205465 instance=ExtResource("4_ozombie")]
+position = Vector2(320, -120)
+zombie_id = "zombie_north"
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=50637677]
+
+[node name="HudBg" type="ColorRect" parent="HUD" unique_id=1642071386]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+color = Color(0.07, 0.06, 0.08, 0.88)
+
+[node name="Margin" type="MarginContainer" parent="HUD" unique_id=1363770029]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="HBox" type="HBoxContainer" parent="HUD/Margin" unique_id=1583029779]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="HUD/Margin/HBox" unique_id=2096528125]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 11
+text = "★ SISWA SMA"
+
+[node name="BodyLabel" type="Label" parent="HUD/Margin/HBox" unique_id=1783960300]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 11
+text = "Body: 100/100"
+
+[node name="MindLabel" type="Label" parent="HUD/Margin/HBox" unique_id=357567390]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "Mind: 100/100"
+
+[node name="ZombieCountLabel" type="Label" parent="HUD/Margin/HBox" unique_id=1629587564]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 11
+text = "Sisa Zombie: 6"
+
+[node name="Hint" type="Label" parent="HUD/Margin/HBox" unique_id=1584147433]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_font_sizes/font_size = 10
+text = "[WASD] Gerak | Dekati Zombie untuk Turn-Based!"
+
+[node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=34721066]
+layer = 10
+
+[node name="VignetteRect" type="ColorRect" parent="TransitionLayer" unique_id=1004516482]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.04, 0.02, 0.05, 1)
+
+[node name="EncounterBanner" type="PanelContainer" parent="TransitionLayer" unique_id=1655149499]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="TransitionLayer/EncounterBanner" unique_id=1868532853]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="TransitionLayer/EncounterBanner/VBox" unique_id=1668454220]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.25, 0.25, 1)
+theme_override_font_sizes/font_size = 16
+text = "⚔ KEPUNGAN! ZOMBIE MENYERANG! ⚔"
+horizontal_alignment = 1
